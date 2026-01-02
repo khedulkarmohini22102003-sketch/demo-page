@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Share Location</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      margin-top: 50px;
+    }
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #output {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>📍 Share Your Location</h2>
+  <h3>Enter mobile number accept only 10 digits</h3>
+<p>Click the button and allow location access.</p>
+
+<button onclick="getLocation()">Share Location</button>
+
+<div id="output"></div>
+
+<script>
+function getLocation() {
+  if (!navigator.geolocation) {
+    alert("Geolocation not supported");
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+
+      document.getElementById("output").innerHTML = `
+        <p><b>Latitude:</b> ${lat}</p>
+        <p><b>Longitude:</b> ${lon}</p>
+        <a target="_blank"
+           href="https://www.google.com/maps?q=${lat},${lon}">
+           📍 View on Google Maps
+        </a>
+      `;
+    },
+    () => {
+      alert("Location permission denied");
+    }
+  );
+}
+</script>
+
+</body>
+</html>
+
